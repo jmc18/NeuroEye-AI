@@ -1,30 +1,37 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import './index.css';
-import App from './App.tsx';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { createRouter } from '@tanstack/react-router'
 
-import $ from 'jquery';
-import _ from 'lodash';
-import Dropzone from 'dropzone';
-import noUiSlider from 'nouislider';
-import DataTable from 'datatables.net';
-import { Calendar } from 'vanilla-calendar-pro';
+import { AppProviders } from '@app/providers/AppProviders'
+import type { RouterContext } from '@app/router/context'
+import { routeTree } from '@app/router/routeTree.gen'
+import '@lib/i18n/config'
+import '@lib/preline-plugins'
+import './index.css'
 
-window.$ = $;
-window.jQuery = $;
-window._ = _;
-window.Dropzone = Dropzone;
-window.noUiSlider = noUiSlider;
-window.DataTable = DataTable;
-window.VanillaCalendarPro = Calendar;
+const defaultContext: RouterContext = {
+  auth: {
+    isAuthenticated: false,
+    login: async () => undefined,
+    logout: () => undefined,
+  },
+}
+
+const router = createRouter({
+  routeTree,
+  context: defaultContext,
+})
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
 
 import('preline').then(() => {
   createRoot(document.getElementById('root-container')!).render(
     <StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StrictMode>
-  );
-});
+      <AppProviders router={router} />
+    </StrictMode>,
+  )
+})

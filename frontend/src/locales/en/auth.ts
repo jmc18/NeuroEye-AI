@@ -1,0 +1,29 @@
+export const auth = {
+  signIn: 'Sign in',
+  signingIn: 'Signing in…',
+  signInTitle: 'Sign in',
+  signInAfterReturn: 'After signing in you will return to <code>{{url}}</code>',
+  signInContinue: 'Sign in to continue.',
+  register: 'Register',
+  registerTitle: 'Create account',
+  forgotPassword: 'Forgot password?',
+  noAccount: "Don't have an account?",
+  hasAccount: 'Already have an account?',
+  recoveryTitle: 'Reset password',
+  recoveryDescription: 'We will send you a link to reset your password.',
+  recoverySubmit: 'Send recovery link',
+  backToLogin: '← Back to login',
+  fullName: 'Full name',
+  emailPlaceholder: 'you@example.com',
+  layoutHint: 'Auth layout (_auth)',
+  formErrors: {
+    email: {
+      required: 'Enter your email address.',
+      invalid: 'Enter a valid email address.',
+    },
+    password: {
+      required: 'Enter your password.',
+      minLength: 'Password must be at least {{min}} characters.',
+    },
+  },
+} as const

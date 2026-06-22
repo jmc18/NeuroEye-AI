@@ -1,0 +1,13 @@
+export const common = {
+  appName: 'NeuroEyeAI',
+  email: 'Email',
+  password: 'Password',
+  showPassword: 'Show password',
+  hidePassword: 'Hide password',
+  goHome: 'Back to home',
+  page: 'Page',
+  routeFile: 'Route file',
+  go: 'Go',
+  signOut: 'Sign out',
+  language: 'Language',
+} as const
