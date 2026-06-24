@@ -77,6 +77,20 @@ On Windows, if `uv` is not on your PATH:
 py -m uv run alembic upgrade head
 ```
 
+### Seed platform super admin
+
+Configure your credentials in `.env` (see [Configuration](configuration.md)), then run:
+
+```powershell
+uv run python -m app.db.seeders
+```
+
+This creates the system tenant **NeuroScan Platform** (`is_system=true`), the **Super Admin** role, and your platform administrator user. The seeder is idempotent: running it again will not duplicate records.
+
+```powershell
+py -m uv run python -m app.db.seeders
+```
+
 ## Initial schema
 
 The first migration (`initial`) creates:

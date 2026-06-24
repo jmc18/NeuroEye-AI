@@ -19,6 +19,13 @@ class Settings(BaseSettings):
 
     jwt_secret_key: str
     jwt_algorithm: str
+    jwt_access_token_expire_minutes: int = 60 * 24
+
+    seed_platform_email: str
+    seed_platform_password: str
+    seed_platform_first_name: str
+    seed_platform_last_name: str = ""
+    seed_platform_second_last_name: str = ""
 
     model_config = SettingsConfigDict(
         env_file=_BACKEND_DIR / ".env",

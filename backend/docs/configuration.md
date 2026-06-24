@@ -25,6 +25,11 @@ Edit `.env` with your local values. Never commit `.env` to version control.
 | `REDIS_PORT` | Redis port | `6379` |
 | `JWT_SECRET_KEY` | Secret for signing JWT tokens | Change in production |
 | `JWT_ALGORITHM` | JWT signing algorithm | `HS256` |
+| `SEED_PLATFORM_EMAIL` | Super admin email for DB seeders | `admin@neuroscan.platform` |
+| `SEED_PLATFORM_PASSWORD` | Super admin password for DB seeders | Change before seeding |
+| `SEED_PLATFORM_FIRST_NAME` | Super admin first name | `Javier` |
+| `SEED_PLATFORM_LAST_NAME` | Super admin last name | `Martínez` |
+| `SEED_PLATFORM_SECOND_LAST_NAME` | Super admin second last name | `Cornejo` |
 
 ## How settings are loaded
 

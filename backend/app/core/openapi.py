@@ -21,6 +21,10 @@ OPENAPI_TAGS = [
         "description": "Service health and readiness checks.",
     },
     {
+        "name": "Auth",
+        "description": "Authentication and session management.",
+    },
+    {
         "name": "Tenants",
         "description": "Tenant (organization) management.",
     },

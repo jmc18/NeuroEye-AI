@@ -32,6 +32,8 @@ export const useAuthStore = createPersistedStore<AuthState>(
     logout: () => {
       void logoutFromApi()
 
+      persistAccessToken(null)
+
       set({
         isAuthenticated: false,
         user: null,

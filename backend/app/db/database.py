@@ -1,8 +1,4 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from app.core.container import container
 
-from app.core.config import settings
-
-engine = create_engine(settings.database_url, pool_pre_ping=True)
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+async_engine = container.async_engine()
+AsyncSessionLocal = container.async_session_factory()

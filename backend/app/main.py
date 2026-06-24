@@ -1,19 +1,25 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from scalar_fastapi import Layout, SearchHotKey, get_scalar_api_reference
 
 from app.api.v1.router import router as v1_router
+from app.core.async_runtime import configure_async_runtime
 from app.core.config import settings
+from app.core.container import container
 from app.core.openapi import API_VERSION, custom_openapi
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    configure_async_runtime()
     yield
 
 
 def create_app() -> FastAPI:
+    container.wire(modules=["app.dependencies.database"])
+
     app = FastAPI(
         title=settings.app_name,
         version=API_VERSION,
@@ -23,6 +29,17 @@ def create_app() -> FastAPI:
         openapi_url="/openapi.json",
     )
     app.openapi = lambda: custom_openapi(app)
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+        ],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     app.include_router(v1_router, prefix="/api/v1")
 

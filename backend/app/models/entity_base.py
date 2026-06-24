@@ -20,8 +20,10 @@ class EntityBase(Base):
             server_default=func.now()
         )
     updated_at: Mapped[DateTime] = mapped_column(
-            DateTime(timezone=True), 
-            onupdate=func.now()
+            DateTime(timezone=True),
+            server_default=func.now(),
+            default=func.now(),
+            onupdate=func.now(),
         )
     is_deleted: Mapped[bool] = mapped_column(
             default=False

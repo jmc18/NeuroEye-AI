@@ -38,7 +38,7 @@ type FormControlProps = {
 
 export function formControlClassName({ hasError, className }: FormControlProps = {}): string {
   return cn(
-    'block w-full rounded-lg border px-3 py-2 text-sm dark:bg-neutral-900',
+    'block w-full rounded-lg border px-3 py-2 text-sm dark:bg-neutral-900 dark:text-white dark:placeholder:text-neutral-400',
     hasError
       ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
       : 'border-gray-200 dark:border-neutral-700',
