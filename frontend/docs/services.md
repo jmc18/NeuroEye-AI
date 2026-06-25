@@ -4,8 +4,7 @@ HTTP and business logic are split so components and stores stay thin.
 
 ```
 features/auth/
-├── api/authApi.ts         # HTTP calls (axios)
-├── services/authService.ts # Orchestration, mapping, token persistence
+├── services/authService.ts # Orval login + mapping + token/session sync
 ├── store/authStore.ts      # Zustand — calls services
 ├── hooks/useLoginForm.ts   # Form logic (react-hook-form)
 └── pages/LoginPage.tsx     # UI only
@@ -16,12 +15,19 @@ features/auth/
 ```
 LoginPage → useLoginForm → useAuth().login()
          → authStore → authService.loginWithCredentials()
-         → authApi.login()  (falls back to demo if API unavailable)
+         → login() from @api/generated/auth
+         → customInstance (axios) with Bearer + X-Tenant-Id
 ```
+
+## Session sync
+
+- On login: `authService` persists token to `localStorage` and sets `httpSession`.
+- On logout: `httpSession.clear()` and token removed from storage.
+- On app load: `StoreHydrationGate` calls `syncHttpSessionFromStorage()` after Zustand rehydration.
 
 ## When the backend is ready
 
-`authService.ts` already calls `POST /api/v1/auth/login`. Remove the demo fallback in the `catch` block once the endpoint exists.
+Remove the demo fallback in the `catch` block of `loginWithCredentials` once login is validated in production.
 
 ## Forms (no FormEvent)
 
@@ -35,18 +41,14 @@ const { form, onSubmit, isSubmitting } = useLoginForm(returnUrl)
 </form>
 ```
 
-`handleSubmit` from RHF infers types from the schema — no manual `FormEvent` handlers.
-
 ## Reuse across features
-
-Import the service from other modules:
 
 ```tsx
 import { loginWithCredentials } from '@features/auth'
 ```
 
-Or only the API layer:
+Direct Orval usage (when no extra logic is needed):
 
 ```tsx
-import { authApi } from '@features/auth/api/authApi'
+import { login } from '@api/generated/auth/auth'
 ```

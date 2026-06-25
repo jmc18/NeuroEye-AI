@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -12,6 +12,7 @@ export function useLoginForm(returnUrl?: string) {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const { login } = useAuth()
+  const [logingFailedMessage, setLoginFailedMessage] = useState('')
 
   const resolver = useMemo(
     () => zodResolver(createLoginFormSchema(t)),
@@ -28,7 +29,12 @@ export function useLoginForm(returnUrl?: string) {
   })
 
   const onSubmit = form.handleSubmit(async (values) => {
-    await login(values)
+    const isSuccess = await login(values)
+
+    if (!isSuccess) {
+      setLoginFailedMessage(t('auth.signInFailed'))
+      return
+    }
     navigateToReturnUrl(navigate, returnUrl)
   })
 
@@ -36,5 +42,6 @@ export function useLoginForm(returnUrl?: string) {
     form,
     onSubmit,
     isSubmitting: form.formState.isSubmitting,
+    logingFailedMessage,
   }
 }

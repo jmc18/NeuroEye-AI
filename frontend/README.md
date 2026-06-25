@@ -35,6 +35,17 @@ src/
 - [Internationalization (i18n)](docs/i18n.md)
 - [State management (Zustand)](docs/state.md)
 - [Services layer](docs/services.md)
+- [API types codegen](docs/api-codegen.md)
+
+## API types
+
+Sync TypeScript types from the backend OpenAPI schema:
+
+```powershell
+pnpm api:sync
+```
+
+API docs (backend): http://localhost:8000/scalar
 
 Default language: **Spanish (`es`)**. Use the language switcher (top-right) for English.
 

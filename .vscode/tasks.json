@@ -1,0 +1,229 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev:docker",
+      "detail": "Postgres + Redis + API (docker compose)",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/docker-dev-all.mjs"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "dev:docker:logs",
+      "detail": "Postgres + Redis + API + logs API",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/docker-dev-all.mjs", "--logs"],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "docker-api",
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "(Application startup complete|Uvicorn running on)"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "label": "dev:infra:wait",
+      "detail": "Postgres + Redis (espera healthy) — preLaunch debug backend",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/docker-infra-wait.mjs"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "dev"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "dev:infra",
+      "detail": "Solo Postgres + Redis",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/docker-infra-up.mjs"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "dev"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "dev:backend:docker",
+      "detail": "Alias: levanta/rebuild solo API (+ deps)",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/docker-dev-api.mjs"],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "docker-api",
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "(Application startup complete|Uvicorn running on)"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "label": "dev:backend",
+      "detail": "FastAPI local (uv run) — http://localhost:8000",
+      "type": "process",
+      "command": "uv",
+      "args": ["run", "python", "run.py", "--reload"],
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "PYTHONSTARTUP": "${workspaceFolder}/backend/asyncio_windows.py"
+        }
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "uvicorn",
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "(Application startup complete|Uvicorn running on)"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "label": "dev:frontend",
+      "detail": "Vite — http://localhost:5173",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/frontend/node_modules/vite/bin/vite.js"],
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".",
+          "endsPattern": "Local:\\s+http://localhost:"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "label": "dev:all",
+      "detail": "Backend local + Frontend",
+      "dependsOn": ["dev:backend", "dev:frontend"],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "label": "dev:all:docker",
+      "detail": "Docker (DB+Redis+API) + Frontend",
+      "dependsOn": ["dev:docker", "dev:frontend"],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      }
+    },
+    {
+      "label": "prod:up",
+      "detail": "Produccion Linux",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/scripts/docker-prod-up.mjs"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "dev"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "api:sync",
+      "detail": "OpenAPI + Orval",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/frontend/scripts/api-sync.mjs"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "api:sync:dev",
+      "detail": "Fetch API + Orval",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/frontend/scripts/api-sync.mjs", "--dev"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "check:frontend",
+      "detail": "TypeScript typecheck",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/frontend/node_modules/typescript/lib/tsc.js", "-b"],
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "check:all",
+      "dependsOn": ["check:frontend"],
+      "problemMatcher": []
+    }
+  ]
+}

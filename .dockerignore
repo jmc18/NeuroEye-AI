@@ -1,0 +1,10 @@
+# Ignorar archivos locales y caches en builds Docker
+.git
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/.venv
+**/node_modules
+**/.env
+**/.env.*
+!**/.env.example

@@ -16,6 +16,7 @@ export const auth = {
   fullName: 'Full name',
   emailPlaceholder: 'you@example.com',
   layoutHint: 'Auth layout (_auth)',
+  signInFailed: 'Sign in failed. Please check your credentials and try again.',
   formErrors: {
     email: {
       required: 'Enter your email address.',

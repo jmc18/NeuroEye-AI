@@ -4,6 +4,7 @@ import { RouterProvider, type AnyRouter } from '@tanstack/react-router'
 import { StoreHydrationGate } from '@app/providers/StoreHydrationGate'
 import type { RouterContext } from '@app/router/context'
 import { useAuth } from '@hooks/useStore'
+import { ToastProvider } from '@shared/notifications'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,9 +28,11 @@ export function AppProviders({ router }: AppProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <StoreHydrationGate>
-        <RouterProvider router={router} context={context} />
-      </StoreHydrationGate>
+      <ToastProvider>
+        <StoreHydrationGate>
+          <RouterProvider router={router} context={context} />
+        </StoreHydrationGate>
+      </ToastProvider>
     </QueryClientProvider>
   )
 }

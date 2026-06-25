@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 
+import { syncHttpSessionFromStorage } from '@features/auth/services/authService'
 import { useAuthStore } from '@features/auth/store/authStore'
 import { waitForStoreHydration, useLocaleStore, useUiStore } from '@store'
 
@@ -14,7 +15,10 @@ export function StoreHydrationGate({ children }: StoreHydrationGateProps) {
   const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
-    void waitForStoreHydration(PERSISTED_STORES).then(() => setHydrated(true))
+    void waitForStoreHydration(PERSISTED_STORES).then(() => {
+      syncHttpSessionFromStorage()
+      setHydrated(true)
+    })
   }, [])
 
   if (!hydrated) {

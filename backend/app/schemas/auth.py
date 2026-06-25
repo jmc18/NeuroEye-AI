@@ -14,6 +14,7 @@ class AuthUserResponse(APIModel):
     name: str
     role: str
     tenant: str
+    tenant_id: str
 
 
 class LoginResponse(APIModel):

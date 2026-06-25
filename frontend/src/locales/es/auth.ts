@@ -16,6 +16,7 @@ export const auth = {
   fullName: 'Nombre completo',
   emailPlaceholder: 'tu@ejemplo.com',
   layoutHint: 'Layout de autenticación (_auth)',
+  signInFailed: 'Error al iniciar sesión. Por favor, revisa tus credenciales e inténtalo de nuevo.',
   formErrors: {
     email: {
       required: 'Introduce tu correo electrónico.',

@@ -22,18 +22,22 @@ uv sync
 # 3. Start database and Redis
 docker compose up -d
 
+# Optional: run API in Docker too (skips Windows asyncio issues)
+# docker compose up --build -d
+
 # 4. Run migrations
 uv run alembic upgrade head
 
-# 5. Start the API
-uv run uvicorn app.main:app --reload
+# 5. Start the API (Windows: use run.py — psycopg async needs SelectorEventLoop)
+uv run python run.py --reload
 ```
 
 API docs (with server running):
 
-- **Scalar (recommended):** http://localhost:8000/scalar
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+- **Scalar:** http://localhost:8000/scalar
+- **OpenAPI JSON:** http://localhost:8000/openapi.json
+
+Generate frontend types: `cd ../frontend && pnpm api:sync`
 
 ## Documentation
 
@@ -41,7 +45,8 @@ See the [`docs/`](docs/README.md) folder:
 
 - [Configuration](docs/configuration.md) — `.env` variables
 - [Database](docs/database.md) — Docker, PostgreSQL, Redis, and Alembic
-- [API documentation](docs/api.md) — OpenAPI, Swagger, ReDoc, and Scalar
+- [Docker](docs/docker.md) — infra vs API en contenedor (Alpine / slim)
+- [API documentation](docs/api.md) — Scalar, OpenAPI, and frontend codegen
 
 ## Project layout
 

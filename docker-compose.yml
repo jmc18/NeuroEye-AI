@@ -1,0 +1,4 @@
+# Dev stack — VS Code / Docker Desktop / CLI
+# Services: postgres + redis + api
+include:
+  - path: backend/docker-compose.yml

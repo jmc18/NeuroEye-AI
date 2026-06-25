@@ -3,12 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "packageManager": "pnpm@11.7.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc -b",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:api": "node ./node_modules/orval/dist/bin/orval.mjs",
+    "api:fetch": "node scripts/fetch-openapi.mjs",
+    "api:fetch:dev": "cross-env VITE_API_URL=http://localhost:8000 node scripts/fetch-openapi.mjs",
+    "api:sync": "node scripts/api-sync.mjs",
+    "api:sync:dev": "node scripts/api-sync.mjs --dev",
+    "api:generate": "node ./node_modules/openapi-typescript/bin/cli.js src/api/openapi/openapi.json -o src/types/api.generated.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -28,6 +35,7 @@
     "react-dom": "^19.2.6",
     "react-hook-form": "^7.78.0",
     "react-i18next": "^17.0.8",
+    "react-toastify": "^11.1.0",
     "vanilla-calendar-pro": "^3.1.0",
     "zod": "^4.4.3",
     "zustand": "^5.0.14"
@@ -48,11 +56,14 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "babel-plugin-react-compiler": "^1.0.0",
+    "cross-env": "^10.1.0",
     "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "openapi-typescript": "^7.13.0",
+    "orval": "^8.18.0",
     "prettier": "^3.8.4",
     "tailwindcss": "^4.3.1",
     "typescript": "~6.0.2",

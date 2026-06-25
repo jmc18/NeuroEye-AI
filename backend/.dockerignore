@@ -1,0 +1,24 @@
+# Git / Python
+.git
+.venv
+__pycache__
+*.py[cod]
+*.egg-info
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.coverage
+htmlcov
+
+# Env & local
+.env
+.env.*
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+
+# Docs & misc
+docs
+*.md
+!README.md

@@ -1,0 +1,23 @@
+# Dev image — slim Debian base + uv (Linux avoids Windows asyncio/psycopg issues)
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
+
+WORKDIR /app
+
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# Install deps first (layer cache)
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev
+
+# App source
+COPY app ./app
+COPY alembic ./alembic
+COPY alembic.ini ./
+COPY run.py ./
+
+EXPOSE 8000
+
+CMD ["uv", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

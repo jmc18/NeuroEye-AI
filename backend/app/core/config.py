@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     jwt_algorithm: str
     jwt_access_token_expire_minutes: int = 60 * 24
 
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+    public_api_url: str = "http://localhost:8000"
+
     seed_platform_email: str
     seed_platform_password: str
     seed_platform_first_name: str
@@ -40,6 +43,10 @@ class Settings(BaseSettings):
             f"{self.db_host}:{self.db_port}/"
             f"{self.db_name}"
         )
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
 
 
 settings = Settings()

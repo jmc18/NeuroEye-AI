@@ -1,6 +1,6 @@
 import { createPersistedStore } from '@/store/createPersistedStore'
 
-import { loginWithCredentials, logoutFromApi, persistAccessToken } from '../services/authService'
+import { loginWithCredentials, logoutFromApi } from '../services/authService'
 import type { AuthState } from '../types/auth'
 
 export const useAuthStore = createPersistedStore<AuthState>(
@@ -17,22 +17,22 @@ export const useAuthStore = createPersistedStore<AuthState>(
     user: null,
     accessToken: null,
 
-    login: async (credentials) => {
+    login: async (credentials) : Promise<boolean> => {
       const session = await loginWithCredentials(credentials)
 
-      persistAccessToken(session.accessToken)
+      if(!session) 
+        return false
 
       set({
         isAuthenticated: true,
         user: session.user,
         accessToken: session.accessToken,
       })
+      return true
     },
 
     logout: () => {
       void logoutFromApi()
-
-      persistAccessToken(null)
 
       set({
         isAuthenticated: false,

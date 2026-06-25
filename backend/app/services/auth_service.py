@@ -69,6 +69,7 @@ class AuthService:
                 name=display_name,
                 role=role,
                 tenant=tenant.name,
+                tenant_id=tenant.id,
             ),
         )
 

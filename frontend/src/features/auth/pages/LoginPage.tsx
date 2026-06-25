@@ -10,7 +10,7 @@ const loginRoute = getRouteApi('/_auth/login')
 export function LoginPage() {
   const { t } = useTranslation()
   const { returnUrl } = loginRoute.useSearch()
-  const { form, onSubmit, isSubmitting } = useLoginForm(returnUrl)
+  const { form, onSubmit, isSubmitting, logingFailedMessage } = useLoginForm(returnUrl)
 
   const {
     register,
@@ -34,6 +34,11 @@ export function LoginPage() {
             t('auth.signInContinue')
           )}
         </p>
+        {logingFailedMessage && (
+          <p className="text-sm text-red-600 dark:text-red-400">
+            {logingFailedMessage}
+          </p>
+        )}
       </div>
 
       <form className="space-y-4" onSubmit={onSubmit} noValidate>

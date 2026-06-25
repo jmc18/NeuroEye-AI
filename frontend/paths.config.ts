@@ -5,6 +5,7 @@ const rootDir = path.dirname(fileURLToPath(import.meta.url))
 
 export type PathAliasName =
   | '@'
+  | '@api'
   | '@app'
   | '@features'
   | '@components'
@@ -15,6 +16,7 @@ export type PathAliasName =
   | '@config'
   | '@locales'
   | '@store'
+  | '@shared'
 
 type PathAlias = {
   name: PathAliasName
@@ -28,6 +30,7 @@ type PathAlias = {
  */
 export const PATH_ALIASES = [
   { name: '@', dir: 'src' },
+  { name: '@api', dir: 'src/api' },
   { name: '@app', dir: 'src/app' },
   { name: '@features', dir: 'src/features' },
   { name: '@components', dir: 'src/components' },
@@ -38,6 +41,7 @@ export const PATH_ALIASES = [
   { name: '@config', dir: 'src/config' },
   { name: '@locales', dir: 'src/locales' },
   { name: '@store', dir: 'src/store' },
+  { name: '@shared', dir: 'src/shared' },
 ] as const satisfies readonly PathAlias[]
 
 export function resolveViteAliases(): Record<string, string> {

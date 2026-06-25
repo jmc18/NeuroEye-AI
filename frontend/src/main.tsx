@@ -12,7 +12,7 @@ import './index.css'
 const defaultContext: RouterContext = {
   auth: {
     isAuthenticated: false,
-    login: async () => undefined,
+    login: async () => false,
     logout: () => undefined,
   },
 }

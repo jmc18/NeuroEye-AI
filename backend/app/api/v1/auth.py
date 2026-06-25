@@ -8,7 +8,11 @@ from app.services.auth_service import auth_service
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
-@router.post("/login", response_model=LoginResponse)
+@router.post(
+    "/login",
+    operation_id="login",
+    response_model=LoginResponse,
+)
 async def login(
     body: LoginRequest,
     uow: UnitOfWork = Depends(get_unit_of_work),
