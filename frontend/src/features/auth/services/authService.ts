@@ -16,9 +16,10 @@ export function persistAccessToken(token: string | null): void {
   localStorage.removeItem(ACCESS_TOKEN_KEY)
 }
 
-export function syncHttpSessionFromStorage(): void {
+export function syncHttpSessionFromStorage(userTenantId?: string | null): void {
   const token = localStorage.getItem(ACCESS_TOKEN_KEY)
   httpSession.setAccessToken(token)
+  httpSession.setTenantId(userTenantId ?? null)
 }
 
 export async function loginWithCredentials(

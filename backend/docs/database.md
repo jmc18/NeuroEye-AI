@@ -38,25 +38,50 @@ docker compose down -v
 ## Prerequisites
 
 1. Copy and configure `.env` (see [Configuration](configuration.md)).
-2. Start Docker services before running migrations or the API.
+2. Start Docker services before running the API.
+
+## Automatic migrations and seeders (recommended)
+
+Like **EF Core** `Database.MigrateAsync()` + `SeedAsync()`, the API applies pending Alembic migrations and runs idempotent seeders **on startup** via the FastAPI lifespan hook (`app/db/startup.py`).
+
+When you start the API (`uv run python run.py`, F5 debug, or Docker), you do **not** need to run `alembic upgrade head` or `python -m app.db.seeders` manually. If the PostgreSQL server is reachable but the database in `DB_NAME` does not exist yet, it is created automatically before migrations run.
+
+| Variable | Default (dev) | Description |
+|----------|---------------|-------------|
+| `RUN_MIGRATIONS_ON_STARTUP` | `true` | Apply Alembic `upgrade head` |
+| `RUN_SEEDERS_ON_STARTUP` | `true` | Run platform tenant + super admin seeders |
+| `SEEDERS_DEVELOPMENT_ONLY` | `false` | If `true`, seed only when `APP_ENV=development` |
+| `RUN_DB_STARTUP_IN_LIFESPAN` | `true` | Run startup hook when the app boots |
+| `RUN_DB_STARTUP_BEFORE_UVICORN` | `false` | Docker entrypoint: run once before workers |
+
+Production Docker sets `RUN_DB_STARTUP_BEFORE_UVICORN=true` and `RUN_DB_STARTUP_IN_LIFESPAN=false` so migrations/seed run once before multi-worker Uvicorn starts.
+
+Manual CLI (optional):
+
+```powershell
+uv run python -m app.db.startup
+uv run python -m app.db.seeders
+```
 
 ## Alembic migrations
 
 Alembic reads the database URL from your `.env` file through `app.core.config.Settings`. Run all commands from the `backend/` directory.
 
-### Apply migrations
-
-```powershell
-uv run alembic upgrade head
-```
-
 ### Create a new migration (after model changes)
+
+This is the **only** step you need to run manually when models change:
 
 ```powershell
 uv run alembic revision --autogenerate -m "describe your change"
 ```
 
-Review the generated file under `alembic/versions/` before applying it.
+Review the generated file under `alembic/versions/` before restarting the API (migrations apply automatically on startup).
+
+### Apply migrations manually (optional)
+
+```powershell
+uv run alembic upgrade head
+```
 
 ### Other useful commands
 
@@ -74,10 +99,10 @@ uv run alembic downgrade -1
 On Windows, if `uv` is not on your PATH:
 
 ```powershell
-py -m uv run alembic upgrade head
+py -m uv run alembic revision --autogenerate -m "describe your change"
 ```
 
-### Seed platform super admin
+### Seed platform super admin manually (optional)
 
 Configure your credentials in `.env` (see [Configuration](configuration.md)), then run:
 
@@ -86,10 +111,6 @@ uv run python -m app.db.seeders
 ```
 
 This creates the system tenant **NeuroScan Platform** (`is_system=true`), the **Super Admin** role, and your platform administrator user. The seeder is idempotent: running it again will not duplicate records.
-
-```powershell
-py -m uv run python -m app.db.seeders
-```
 
 ## Initial schema
 

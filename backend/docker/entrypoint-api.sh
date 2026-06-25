@@ -1,9 +1,10 @@
 #!/bin/sh
 set -eu
 
-if [ "${RUN_MIGRATIONS_ON_STARTUP:-true}" = "true" ]; then
-  echo "Running Alembic migrations..."
-  alembic upgrade head
+# Optional: run once before workers (lifespan also runs when RUN_DB_STARTUP_IN_LIFESPAN=true).
+if [ "${RUN_DB_STARTUP_BEFORE_UVICORN:-false}" = "true" ]; then
+  echo "Running database startup (migrations + seeders)..."
+  python -m app.db.startup
 fi
 
 WORKERS="${UVICORN_WORKERS:-2}"

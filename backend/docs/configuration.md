@@ -30,6 +30,12 @@ Edit `.env` with your local values. Never commit `.env` to version control.
 | `SEED_PLATFORM_FIRST_NAME` | Super admin first name | `Javier` |
 | `SEED_PLATFORM_LAST_NAME` | Super admin last name | `Martínez` |
 | `SEED_PLATFORM_SECOND_LAST_NAME` | Super admin second last name | `Cornejo` |
+| `APP_ENV` | Environment (`development`, `production`, `staging`) | `development` |
+| `RUN_MIGRATIONS_ON_STARTUP` | Apply Alembic on API startup | `true` |
+| `RUN_SEEDERS_ON_STARTUP` | Run idempotent seeders on startup | `true` |
+| `SEEDERS_DEVELOPMENT_ONLY` | Seed only when `APP_ENV=development` | `false` |
+| `RUN_DB_STARTUP_IN_LIFESPAN` | Startup hook in FastAPI lifespan | `true` |
+| `RUN_DB_STARTUP_BEFORE_UVICORN` | Run startup once in Docker entrypoint | `false` (dev) |
 
 ## How settings are loaded
 

@@ -1,4 +1,6 @@
-from fastapi import HTTPException, status
+import asyncio
+
+from fastapi import HTTPException, logger, status
 
 from app.core.security import create_access_token, verify_password
 from app.models.user_profile import UserProfile
@@ -23,7 +25,14 @@ def _build_display_name(profile: UserProfile | None, email: str) -> str:
 
 class AuthService:
     async def login(self, uow: UnitOfWork, credentials: LoginRequest) -> LoginResponse:
-        user = await uow.users.get_by_email(credentials.email)
+        try:
+            user = await uow.users.get_by_email(credentials.email)
+        except Exception as e:
+            logger.error(f"Error occurred while fetching user: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Error occurred while fetching user",
+            )
 
         if user is None or not verify_password(
             credentials.password,
@@ -39,39 +48,55 @@ class AuthService:
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="User account is inactive",
             )
-
-        profile = await uow.user_profiles.get_by_user_id(user.id)
-        tenant = await uow.tenants.get_by_id(user.tenant_id)
-        role_name = await uow.roles.get_primary_name_for_user(user.id)
+        try: 
+            profile, tenant, role_name = await asyncio.gather(
+                uow.user_profiles.get_by_user_id(user.id),
+                uow.tenants.get_by_id(user.tenant_id),
+                uow.roles.get_primary_name_for_user(user.id),
+            )
+        except Exception as ex:
+            logger.error(f"Error occurred while fetching user profile, tenant, or role: {ex}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Error occurred while fetching user profile, tenant, or role",
+            )
 
         if tenant is None:
+            logger.error(f"Tenant not found for user {user.id} with tenant_id {user.tenant_id}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="User tenant not found",
             )
 
-        role = _slugify_role(role_name) if role_name else "user"
-        display_name = _build_display_name(profile, user.email)
-        access_token = create_access_token(
-            user.id,
-            extra_claims={
-                "email": user.email,
-                "tenant_id": user.tenant_id,
-                "role": role,
-            },
-        )
+        try:
+            role = _slugify_role(role_name) if role_name else "user"
+            display_name = _build_display_name(profile, user.email)
+            access_token = create_access_token(
+                user.id,
+                extra_claims={
+                    "email": user.email,
+                    "tenant_id": user.tenant_id,
+                    "role": role,
+                },
+            )
 
-        return LoginResponse(
-            access_token=access_token,
-            user=AuthUserResponse(
-                id=user.id,
-                email=user.email,
-                name=display_name,
-                role=role,
-                tenant=tenant.name,
-                tenant_id=tenant.id,
-            ),
-        )
+            return LoginResponse(
+                access_token=access_token,
+                user=AuthUserResponse(
+                    id=user.id,
+                    email=user.email,
+                    name=display_name,
+                    role=role,
+                    tenant=tenant.name,
+                    tenant_id=tenant.id,
+                ),
+            )
+        except Exception as e:
+            logger.error(f"Error occurred while generating access token or building response: {e}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Error occurred while generating access token or building response",
+            )
 
 
 auth_service = AuthService()

@@ -9,10 +9,12 @@ from app.api.v1.router import router as v1_router
 from app.core.config import settings
 from app.core.container import container
 from app.core.openapi import API_VERSION, custom_openapi
+from app.db.startup import prepare_database_on_startup
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    await prepare_database_on_startup()
     yield
 
 

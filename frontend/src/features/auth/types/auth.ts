@@ -6,6 +6,7 @@ export type AuthUser = {
   name: string
   role: string
   tenant: string
+  tenantId: string
 }
 
 export type LoginCredentials = LoginRequest

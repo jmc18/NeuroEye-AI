@@ -16,7 +16,8 @@ export function StoreHydrationGate({ children }: StoreHydrationGateProps) {
 
   useEffect(() => {
     void waitForStoreHydration(PERSISTED_STORES).then(() => {
-      syncHttpSessionFromStorage()
+      const { user } = useAuthStore.getState()
+      syncHttpSessionFromStorage(user?.tenantId)
       setHydrated(true)
     })
   }, [])

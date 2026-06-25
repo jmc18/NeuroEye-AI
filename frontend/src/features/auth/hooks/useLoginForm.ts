@@ -9,14 +9,14 @@ import { createLoginFormSchema, type LoginFormValues } from '@features/auth/sche
 import { useAuth } from '@hooks/useStore'
 
 export function useLoginForm(returnUrl?: string) {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { login } = useAuth()
-  const [logingFailedMessage, setLoginFailedMessage] = useState('')
+  const [loginFailedMessage, setLoginFailedMessage] = useState('')
 
   const resolver = useMemo(
     () => zodResolver(createLoginFormSchema(t)),
-    [t, i18n.language],
+    [t],
   )
 
   const form = useForm<LoginFormValues>({
@@ -42,6 +42,6 @@ export function useLoginForm(returnUrl?: string) {
     form,
     onSubmit,
     isSubmitting: form.formState.isSubmitting,
-    logingFailedMessage,
+    loginFailedMessage: loginFailedMessage,
   }
 }

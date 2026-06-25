@@ -14,6 +14,5 @@ Guides for running and developing the NeuroEyeAI backend.
 cd backend
 copy .env.example .env
 docker compose up -d
-uv run alembic upgrade head
-uv run uvicorn app.main:app --reload
+uv run python run.py --reload
 ```

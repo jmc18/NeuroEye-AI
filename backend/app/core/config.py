@@ -24,6 +24,12 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
     public_api_url: str = "http://localhost:8000"
 
+    app_env: str = "development"
+    run_migrations_on_startup: bool = True
+    run_seeders_on_startup: bool = True
+    seeders_development_only: bool = False
+    run_db_startup_in_lifespan: bool = True
+
     seed_platform_email: str
     seed_platform_password: str
     seed_platform_first_name: str
@@ -37,11 +43,19 @@ class Settings(BaseSettings):
 
     @property
     def database_url(self) -> str:
+        return self._database_url(self.db_name)
+
+    @property
+    def maintenance_database_url(self) -> str:
+        """Connect to the default `postgres` database (for CREATE DATABASE)."""
+        return self._database_url("postgres")
+
+    def _database_url(self, database_name: str) -> str:
         return (
             f"postgresql+psycopg://"
             f"{self.db_user}:{self.db_password}@"
             f"{self.db_host}:{self.db_port}/"
-            f"{self.db_name}"
+            f"{database_name}"
         )
 
     @property

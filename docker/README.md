@@ -50,13 +50,11 @@ chmod +x docker/deploy.sh
 
 # Alternativa multiplataforma (Windows / Mac / Linux)
 node scripts/docker-prod-up.mjs
-
-# Seed inicial (una vez)
-docker compose -f docker/compose.prod.yml --env-file .env.production \
-  exec api python -m app.db.seeders
 ```
 
 Abre `http://<tu-servidor>/` (frontend) y `http://<tu-servidor>/scalar` (docs API).
+
+Migraciones y seeders se ejecutan automáticamente al arrancar el contenedor `api` (ver `RUN_MIGRATIONS_ON_STARTUP`, `RUN_SEEDERS_ON_STARTUP` en `.env.production`).
 
 ## Variables importantes (`.env.production`)
 
@@ -69,6 +67,7 @@ Abre `http://<tu-servidor>/` (frontend) y `http://<tu-servidor>/scalar` (docs AP
 | `HTTP_PORT` | Puerto host (default `80`) |
 | `UVICORN_WORKERS` | Workers API (default `2`) |
 | `RUN_MIGRATIONS_ON_STARTUP` | `true` aplica Alembic al arrancar |
+| `RUN_SEEDERS_ON_STARTUP` | `true` crea tenant/super admin idempotente al arrancar |
 
 ## HTTPS (recomendado)
 

@@ -18,5 +18,6 @@ export function mapAuthUserResponse(
     name: user.name,
     role: user.role,
     tenant: user.tenant,
+    tenantId: user.tenant_id,
   }
 }

@@ -13,8 +13,8 @@ src/api/
 │   ├── axios.ts              # AXIOS_INSTANCE + customInstance (Orval mutator)
 │   └── errors.ts             # getApiErrorMessage
 ├── generated/                # Orval — do not edit
-│   ├── auth.ts
-│   ├── health.ts
+│   ├── auth/auth.ts
+│   ├── health/health.ts
 │   └── models/
 └── index.ts
 ```

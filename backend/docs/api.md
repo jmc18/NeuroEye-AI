@@ -58,6 +58,17 @@ Current endpoints:
 - `health_check` — `GET /api/v1/health`
 - `login` — `POST /api/v1/auth/login`
 
+## OpenAPI follow-up
+
+| Item | Status | Notes |
+|------|--------|-------|
+| Explicit `operation_id` on all routes | Done | Required for Orval function names |
+| Domain tags (`Auth`, `Health`, …) | Done | Orval `tags-split` → one file per tag |
+| `tenant_id` on `AuthUserResponse` | Done | Frontend sends `X-Tenant-Id` after login |
+| Paginated `Page[T]` schema | Planned | Typed list params for `get_{resource}` |
+| `security=[{"BearerAuth": []}]` on protected routes | Planned | Scalar + Orval auth docs |
+| Pydantic model for health response | Planned | Replace generic `dict` in schema |
+
 ## Example endpoint
 
 ```

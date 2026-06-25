@@ -25,11 +25,15 @@ docker compose up -d
 # Optional: run API in Docker too (skips Windows asyncio issues)
 # docker compose up --build -d
 
-# 4. Run migrations
-uv run alembic upgrade head
-
-# 5. Start the API (Windows: use run.py — psycopg async needs SelectorEventLoop)
+# 4. Start the API (migrations + seeders run automatically on startup)
+# Windows: use run.py — psycopg async needs SelectorEventLoop
 uv run python run.py --reload
+```
+
+After changing models, create a migration manually:
+
+```powershell
+uv run alembic revision --autogenerate -m "describe your change"
 ```
 
 API docs (with server running):
