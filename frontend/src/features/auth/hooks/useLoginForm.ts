@@ -29,13 +29,21 @@ export function useLoginForm(returnUrl?: string) {
   })
 
   const onSubmit = form.handleSubmit(async (values) => {
-    const isSuccess = await login(values)
+    setLoginFailedMessage('')
+    try {
+      const isSuccess = await login(values)
 
     if (!isSuccess) {
       setLoginFailedMessage(t('auth.signInFailed'))
       return
     }
+
     navigateToReturnUrl(navigate, returnUrl)
+    } catch (error) {
+      console.error("Login error:", error)
+      setLoginFailedMessage(t('auth.networkOrServerError'))
+      return
+    }
   })
 
   return {

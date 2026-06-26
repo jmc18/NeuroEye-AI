@@ -26,7 +26,7 @@ export async function loginWithCredentials(
   credentials: LoginCredentials,
 ): Promise<AuthSession | undefined> {
   try {
-    const response = await login(credentials, { skipErrorToast: true })
+    const response = await login(credentials, { skipErrorToast: false })
 
     httpSession.setAccessToken(response.access_token)
     httpSession.setTenantId(response.user.tenant_id)

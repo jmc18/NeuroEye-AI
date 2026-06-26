@@ -17,6 +17,7 @@ export const auth = {
   emailPlaceholder: 'tu@ejemplo.com',
   layoutHint: 'Layout de autenticación (_auth)',
   signInFailed: 'Error al iniciar sesión. Por favor, revisa tus credenciales e inténtalo de nuevo.',
+  networkOrServerError: 'Error de red o del servidor. Por favor, inténtalo de nuevo más tarde.',
   formErrors: {
     email: {
       required: 'Introduce tu correo electrónico.',

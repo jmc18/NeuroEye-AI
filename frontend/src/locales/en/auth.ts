@@ -17,6 +17,7 @@ export const auth = {
   emailPlaceholder: 'you@example.com',
   layoutHint: 'Auth layout (_auth)',
   signInFailed: 'Sign in failed. Please check your credentials and try again.',
+  networkOrServerError: 'Network or server error. Please try again later.',
   formErrors: {
     email: {
       required: 'Enter your email address.',

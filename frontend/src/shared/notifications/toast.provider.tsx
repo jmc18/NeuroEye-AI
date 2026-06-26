@@ -21,7 +21,6 @@ export function ToastProvider({ children, config }: ToastProviderProps) {
       <ToastContainer
         position={position}
         newestOnTop
-        stacked
         limit={limit}
         transition={Slide}
         closeButton={false}
@@ -32,8 +31,8 @@ export function ToastProvider({ children, config }: ToastProviderProps) {
         pauseOnHover
         role="region"
         aria-label="Notifications"
-        className="neuroeye-toast-container pointer-events-none !w-full max-w-sm"
-        toastClassName="neuroeye-toast-item !bg-transparent !p-0 !shadow-none !min-h-0 !mb-3 !overflow-visible"
+        className="neuroeye-toast-container pointer-events-none"
+        toastClassName="neuroeye-toast-item !bg-transparent !p-0 !shadow-none !overflow-visible"
       />
     </>
   )

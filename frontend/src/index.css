@@ -22,22 +22,25 @@
 /* Toast notifications — layout only; UI is Preline/Tailwind */
 @layer components {
   .neuroeye-toast-container.Toastify__toast-container {
-    width: min(100vw - 2rem, 24rem);
+    --toastify-toast-width: min(100vw - 2rem, 24rem);
+    --toastify-toast-min-height: 0px;
+    --toastify-toast-padding: 0px;
+    width: var(--toastify-toast-width);
     max-height: calc(100vh - 2rem);
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: visible;
     padding: 1rem;
   }
 
   .neuroeye-toast-container .Toastify__toast {
-    margin-bottom: 0;
-    min-height: 0;
+    margin-bottom: 0.75rem;
+    min-height: unset;
     background: transparent;
     box-shadow: none;
     padding: 0;
+    overflow: visible;
   }
 
-  .neuroeye-toast-container .Toastify__toast-body {
-    padding: 0;
+  .neuroeye-toast-container .Toastify__toast:last-child {
+    margin-bottom: 0;
   }
 }
