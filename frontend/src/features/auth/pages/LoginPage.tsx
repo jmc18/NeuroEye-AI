@@ -1,21 +1,26 @@
-import { getRouteApi, Link } from '@tanstack/react-router'
-import { useTranslation } from 'react-i18next'
+import { getRouteApi, Link } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 
-import { FormField, PasswordInput, formControlClassName } from '@components/forms'
-import { useLoginForm } from '@features/auth/hooks/useLoginForm'
-import { ROUTES } from '@config'
+import {
+  FormField,
+  PasswordInput,
+  formControlClassName,
+} from '@components/forms';
+import { useLoginForm } from '@features/auth/hooks/useLoginForm';
+import { ROUTES } from '@config';
 
-const loginRoute = getRouteApi('/_auth/login')
+const loginRoute = getRouteApi('/_auth/login');
 
 export function LoginPage() {
-  const { t } = useTranslation()
-  const { returnUrl } = loginRoute.useSearch()
-  const { form, onSubmit, isSubmitting, loginFailedMessage } = useLoginForm(returnUrl)
+  const { t } = useTranslation();
+  const { returnUrl } = loginRoute.useSearch();
+  const { form, onSubmit, isSubmitting, loginFailedMessage } =
+    useLoginForm(returnUrl);
 
   const {
     register,
     formState: { errors },
-  } = form
+  } = form;
 
   return (
     <div className="space-y-6">
@@ -53,7 +58,9 @@ export function LoginPage() {
             autoComplete="email"
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? 'email-error' : undefined}
-            className={formControlClassName({ hasError: Boolean(errors.email) })}
+            className={formControlClassName({
+              hasError: Boolean(errors.email),
+            })}
             placeholder={t('auth.emailPlaceholder')}
             {...register('email')}
           />
@@ -103,5 +110,5 @@ export function LoginPage() {
         </p>
       </div>
     </div>
-  )
+  );
 }
