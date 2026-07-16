@@ -10,4 +10,7 @@ export const common = {
   go: 'Go',
   signOut: 'Sign out',
   language: 'Language',
+  privacyPolicy: 'Privacy Policy',
+  termsOfService: 'Terms of Service',
+  contactSupport: 'Contact Support',
 } as const
