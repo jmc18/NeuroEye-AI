@@ -1,8 +1,8 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
-import { LoginPage } from '@features/auth/pages/LoginPage'
-import { resolveReturnUrl } from '@features/auth/lib/returnUrl'
-import { loginSearchSchema } from '@features/auth/schemas/loginSearch'
+import { LoginPage } from '@features/auth/pages/LoginPage';
+import { resolveReturnUrl } from '@features/auth/lib/returnUrl';
+import { loginSearchSchema } from '@features/auth/schemas/loginSearch';
 
 export const Route = createFileRoute('/_auth/login')({
   validateSearch: loginSearchSchema,
@@ -10,11 +10,11 @@ export const Route = createFileRoute('/_auth/login')({
     if (context.auth.isAuthenticated) {
       throw redirect({
         to: resolveReturnUrl(search.returnUrl),
-      })
+      });
     }
   },
   component: LoginPage,
   head: () => ({
     meta: [{ title: 'Login | NeuroEyeAI' }],
   }),
-})
+});

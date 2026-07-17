@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, type AnyRouter } from '@tanstack/react-router'
 
+import { QueryDevtoolsPanel } from '@app/providers/Devtools'
 import { StoreHydrationGate } from '@app/providers/StoreHydrationGate'
 import type { RouterContext } from '@app/router/context'
 import { useAuth } from '@hooks/useStore'
@@ -33,6 +34,7 @@ export function AppProviders({ router }: AppProvidersProps) {
           <RouterProvider router={router} context={context} />
         </StoreHydrationGate>
       </ToastProvider>
+      <QueryDevtoolsPanel />
     </QueryClientProvider>
   )
 }
