@@ -30,6 +30,10 @@ Edit `.env` with your local values. Never commit `.env` to version control.
 | `SEED_PLATFORM_FIRST_NAME` | Super admin first name | `Javier` |
 | `SEED_PLATFORM_LAST_NAME` | Super admin last name | `Martínez` |
 | `SEED_PLATFORM_SECOND_LAST_NAME` | Super admin second last name | `Cornejo` |
+| `SEED_CLINICIAN_EMAIL` | Demo clinician email | `clinician@neuroeye.ai` |
+| `SEED_CLINICIAN_PASSWORD` | Demo clinician password | `Clinician123!` |
+| `SEED_CLINICIAN_FIRST_NAME` | Demo clinician first name | `Aris` |
+| `SEED_CLINICIAN_LAST_NAME` | Demo clinician last name | `Thorne` |
 | `APP_ENV` | Environment (`development`, `production`, `staging`) | `development` |
 | `RUN_MIGRATIONS_ON_STARTUP` | Apply Alembic on API startup | `true` |
 | `RUN_SEEDERS_ON_STARTUP` | Run idempotent seeders on startup | `true` |

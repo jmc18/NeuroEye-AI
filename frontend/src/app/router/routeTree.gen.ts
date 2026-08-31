@@ -20,6 +20,15 @@ import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AppSettingsRouteImport } from './routes/_app/settings'
 import { Route as AppProfileRouteImport } from './routes/_app/profile'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppPatientsRouteImport } from './routes/_app/patients'
+import { Route as AppPatientsPatientIdRouteImport } from './routes/_app/patients_.$patientId'
+import { Route as AppSessionsRouteImport } from './routes/_app/sessions'
+import { Route as AppEyetrackingSessionRouteImport } from './routes/_app/eyetracking.session'
+import { Route as AppEyetrackingSessionPatientIdRouteImport } from './routes/_app/eyetracking.session_.$patientId'
+import { Route as AppReportsSessionIdRouteImport } from './routes/_app/reports.$sessionId'
+import { Route as AppAdminTenantsRouteImport } from './routes/_app/admin.tenants'
+import { Route as AppAdminTenantsTenantIdRouteImport } from './routes/_app/admin.tenants_.$tenantId'
+import { Route as AppAdminAccountsRouteImport } from './routes/_app/admin.accounts'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -74,6 +83,51 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPatientsRoute = AppPatientsRouteImport.update({
+  id: '/patients',
+  path: '/patients',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPatientsPatientIdRoute = AppPatientsPatientIdRouteImport.update({
+  id: '/patients_/$patientId',
+  path: '/patients/$patientId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSessionsRoute = AppSessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEyetrackingSessionRoute = AppEyetrackingSessionRouteImport.update({
+  id: '/eyetracking/session',
+  path: '/eyetracking/session',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEyetrackingSessionPatientIdRoute = AppEyetrackingSessionPatientIdRouteImport.update({
+  id: '/eyetracking/session_/$patientId',
+  path: '/eyetracking/session/$patientId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReportsSessionIdRoute = AppReportsSessionIdRouteImport.update({
+  id: '/reports/$sessionId',
+  path: '/reports/$sessionId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminTenantsRoute = AppAdminTenantsRouteImport.update({
+  id: '/admin/tenants',
+  path: '/admin/tenants',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminTenantsTenantIdRoute = AppAdminTenantsTenantIdRouteImport.update({
+  id: '/admin/tenants_/$tenantId',
+  path: '/admin/tenants/$tenantId',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminAccountsRoute = AppAdminAccountsRouteImport.update({
+  id: '/admin/accounts',
+  path: '/admin/accounts',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +136,15 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AppDashboardRoute
   '/profile': typeof AppProfileRoute
   '/settings': typeof AppSettingsRoute
+  '/patients': typeof AppPatientsRoute
+  '/patients/$patientId': typeof AppPatientsPatientIdRoute
+  '/sessions': typeof AppSessionsRoute
+  '/eyetracking/session': typeof AppEyetrackingSessionRoute
+  '/eyetracking/session/$patientId': typeof AppEyetrackingSessionPatientIdRoute
+  '/reports/$sessionId': typeof AppReportsSessionIdRoute
+  '/admin/tenants': typeof AppAdminTenantsRoute
+  '/admin/tenants/$tenantId': typeof AppAdminTenantsTenantIdRoute
+  '/admin/accounts': typeof AppAdminAccountsRoute
   '/login': typeof AuthLoginRoute
   '/recovery-password': typeof AuthRecoveryPasswordRoute
   '/register': typeof AuthRegisterRoute
@@ -93,6 +156,15 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AppDashboardRoute
   '/profile': typeof AppProfileRoute
   '/settings': typeof AppSettingsRoute
+  '/patients': typeof AppPatientsRoute
+  '/patients/$patientId': typeof AppPatientsPatientIdRoute
+  '/sessions': typeof AppSessionsRoute
+  '/eyetracking/session': typeof AppEyetrackingSessionRoute
+  '/eyetracking/session/$patientId': typeof AppEyetrackingSessionPatientIdRoute
+  '/reports/$sessionId': typeof AppReportsSessionIdRoute
+  '/admin/tenants': typeof AppAdminTenantsRoute
+  '/admin/tenants/$tenantId': typeof AppAdminTenantsTenantIdRoute
+  '/admin/accounts': typeof AppAdminAccountsRoute
   '/login': typeof AuthLoginRoute
   '/recovery-password': typeof AuthRecoveryPasswordRoute
   '/register': typeof AuthRegisterRoute
@@ -107,6 +179,15 @@ export interface FileRoutesById {
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/profile': typeof AppProfileRoute
   '/_app/settings': typeof AppSettingsRoute
+  '/_app/patients': typeof AppPatientsRoute
+  '/_app/patients_/$patientId': typeof AppPatientsPatientIdRoute
+  '/_app/sessions': typeof AppSessionsRoute
+  '/_app/eyetracking/session': typeof AppEyetrackingSessionRoute
+  '/_app/eyetracking/session_/$patientId': typeof AppEyetrackingSessionPatientIdRoute
+  '/_app/reports/$sessionId': typeof AppReportsSessionIdRoute
+  '/_app/admin/tenants': typeof AppAdminTenantsRoute
+  '/_app/admin/tenants_/$tenantId': typeof AppAdminTenantsTenantIdRoute
+  '/_app/admin/accounts': typeof AppAdminAccountsRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/recovery-password': typeof AuthRecoveryPasswordRoute
   '/_auth/register': typeof AuthRegisterRoute
@@ -120,6 +201,15 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/profile'
     | '/settings'
+    | '/patients'
+    | '/patients/$patientId'
+    | '/sessions'
+    | '/eyetracking/session'
+    | '/eyetracking/session/$patientId'
+    | '/reports/$sessionId'
+    | '/admin/tenants'
+    | '/admin/tenants/$tenantId'
+    | '/admin/accounts'
     | '/login'
     | '/recovery-password'
     | '/register'
@@ -131,6 +221,15 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/profile'
     | '/settings'
+    | '/patients'
+    | '/patients/$patientId'
+    | '/sessions'
+    | '/eyetracking/session'
+    | '/eyetracking/session/$patientId'
+    | '/reports/$sessionId'
+    | '/admin/tenants'
+    | '/admin/tenants/$tenantId'
+    | '/admin/accounts'
     | '/login'
     | '/recovery-password'
     | '/register'
@@ -144,6 +243,15 @@ export interface FileRouteTypes {
     | '/_app/dashboard'
     | '/_app/profile'
     | '/_app/settings'
+    | '/_app/patients'
+    | '/_app/patients_/$patientId'
+    | '/_app/sessions'
+    | '/_app/eyetracking/session'
+    | '/_app/eyetracking/session_/$patientId'
+    | '/_app/reports/$sessionId'
+    | '/_app/admin/tenants'
+    | '/_app/admin/tenants_/$tenantId'
+    | '/_app/admin/accounts'
     | '/_auth/login'
     | '/_auth/recovery-password'
     | '/_auth/register'
@@ -236,6 +344,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/patients': {
+      id: '/_app/patients'
+      path: '/patients'
+      fullPath: '/patients'
+      preLoaderRoute: typeof AppPatientsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/patients_/$patientId': {
+      id: '/_app/patients_/$patientId'
+      path: '/patients/$patientId'
+      fullPath: '/patients/$patientId'
+      preLoaderRoute: typeof AppPatientsPatientIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/sessions': {
+      id: '/_app/sessions'
+      path: '/sessions'
+      fullPath: '/sessions'
+      preLoaderRoute: typeof AppSessionsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/eyetracking/session': {
+      id: '/_app/eyetracking/session'
+      path: '/eyetracking/session'
+      fullPath: '/eyetracking/session'
+      preLoaderRoute: typeof AppEyetrackingSessionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/eyetracking/session_/$patientId': {
+      id: '/_app/eyetracking/session_/$patientId'
+      path: '/eyetracking/session/$patientId'
+      fullPath: '/eyetracking/session/$patientId'
+      preLoaderRoute: typeof AppEyetrackingSessionPatientIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/reports/$sessionId': {
+      id: '/_app/reports/$sessionId'
+      path: '/reports/$sessionId'
+      fullPath: '/reports/$sessionId'
+      preLoaderRoute: typeof AppReportsSessionIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/admin/tenants': {
+      id: '/_app/admin/tenants'
+      path: '/admin/tenants'
+      fullPath: '/admin/tenants'
+      preLoaderRoute: typeof AppAdminTenantsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/admin/tenants_/$tenantId': {
+      id: '/_app/admin/tenants_/$tenantId'
+      path: '/admin/tenants/$tenantId'
+      fullPath: '/admin/tenants/$tenantId'
+      preLoaderRoute: typeof AppAdminTenantsTenantIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/admin/accounts': {
+      id: '/_app/admin/accounts'
+      path: '/admin/accounts'
+      fullPath: '/admin/accounts'
+      preLoaderRoute: typeof AppAdminAccountsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -243,12 +414,30 @@ interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppProfileRoute: typeof AppProfileRoute
   AppSettingsRoute: typeof AppSettingsRoute
+  AppPatientsRoute: typeof AppPatientsRoute
+  AppPatientsPatientIdRoute: typeof AppPatientsPatientIdRoute
+  AppSessionsRoute: typeof AppSessionsRoute
+  AppEyetrackingSessionRoute: typeof AppEyetrackingSessionRoute
+  AppEyetrackingSessionPatientIdRoute: typeof AppEyetrackingSessionPatientIdRoute
+  AppReportsSessionIdRoute: typeof AppReportsSessionIdRoute
+  AppAdminTenantsRoute: typeof AppAdminTenantsRoute
+  AppAdminTenantsTenantIdRoute: typeof AppAdminTenantsTenantIdRoute
+  AppAdminAccountsRoute: typeof AppAdminAccountsRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppProfileRoute: AppProfileRoute,
   AppSettingsRoute: AppSettingsRoute,
+  AppPatientsRoute: AppPatientsRoute,
+  AppPatientsPatientIdRoute: AppPatientsPatientIdRoute,
+  AppSessionsRoute: AppSessionsRoute,
+  AppEyetrackingSessionRoute: AppEyetrackingSessionRoute,
+  AppEyetrackingSessionPatientIdRoute: AppEyetrackingSessionPatientIdRoute,
+  AppReportsSessionIdRoute: AppReportsSessionIdRoute,
+  AppAdminTenantsRoute: AppAdminTenantsRoute,
+  AppAdminTenantsTenantIdRoute: AppAdminTenantsTenantIdRoute,
+  AppAdminAccountsRoute: AppAdminAccountsRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

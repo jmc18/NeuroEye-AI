@@ -1,5 +1,5 @@
 export const home = {
-  subtitle: 'Rutas de ejemplo con TanStack Router — file-based routing + layouts anidados.',
+  subtitle: 'Workspace clínico NeuroEyeAI — tamizaje oculomotor asistido.',
   groups: {
     public: 'Públicas',
     auth: 'Auth (layout _auth)',
@@ -15,5 +15,11 @@ export const home = {
     dashboard: 'Panel',
     profile: 'Perfil',
     settings: 'Configuración',
+    patients: 'Pacientes',
+    screening: 'Tamizaje IA',
+    sessions: 'Historial',
+    reports: 'Informes',
+    tenants: 'Organizaciones',
+    accounts: 'Cuentas',
   },
 } as const

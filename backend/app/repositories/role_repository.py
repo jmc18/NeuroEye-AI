@@ -19,6 +19,17 @@ class RoleRepository(BaseRepository[Role]):
             )
         )
 
+    async def list_for_tenant(self, tenant_id: str) -> list[Role]:
+        result = await self._session.scalars(
+            select(Role)
+            .where(
+                Role.tenant_id == tenant_id,
+                Role.is_deleted.is_(False),
+            )
+            .order_by(Role.name)
+        )
+        return list(result.all())
+
     async def get_primary_name_for_user(self, user_id: str) -> str | None:
         return await self._session.scalar(
             select(Role.name)

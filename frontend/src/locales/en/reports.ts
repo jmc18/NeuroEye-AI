@@ -1,0 +1,15 @@
+export const reports = {
+  title: 'Diagnostic report',
+  description: 'Oculomotor summary with a clinical disclaimer.',
+  disclaimer: 'Disclaimer',
+  metrics: 'Metrics',
+  sampleCount: 'Samples',
+  meanFps: 'Mean FPS',
+  detectionRate: 'Detection rate',
+  fixation: 'Fixation stability',
+  saccade: 'Saccade amplitude',
+  latency: 'Mean latency',
+  patient: 'Patient',
+  protocol: 'Protocol',
+  download: 'Export',
+} as const

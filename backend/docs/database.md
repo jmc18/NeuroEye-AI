@@ -118,8 +118,24 @@ The first migration (`initial`) creates:
 
 - `tenants` — multi-tenant organizations
 - `users` — users linked to a tenant
+- `user_profiles`, `roles`, `user_roles`, `patients`
 
-Models live in `app/models/`. Alembic autogenerate imports them via `alembic/env.py`.
+The second migration (`clinical_domain`) adds:
+
+- `patients.sex`, `patients.notes`
+- `test_presets` — oculomotor protocols (saccades, fixation)
+- `screening_sessions` — live / completed screening runs
+- `gaze_samples` — per-frame gaze points
+- `session_metrics` — post-session aggregates
+
+Seeders (idempotent, on startup):
+
+- Platform tenant + Super Admin (existing)
+- Clinician user (`SEED_CLINICIAN_*`)
+- Saccades / Fixation presets
+- Demo patients and completed sessions with benchmark metrics
+
+Do **not** run `alembic upgrade` by hand unless you have disabled `RUN_MIGRATIONS_ON_STARTUP`. The FastAPI lifespan hook applies `upgrade head` and then seeders.
 
 ## Troubleshooting
 

@@ -21,10 +21,10 @@ type AppProvidersProps = {
 }
 
 export function AppProviders({ router }: AppProvidersProps) {
-  const { isAuthenticated, login, logout } = useAuth()
+  const { isAuthenticated, user, login, logout } = useAuth()
 
   const context: RouterContext = {
-    auth: { isAuthenticated, login, logout },
+    auth: { isAuthenticated, user, login, logout },
   }
 
   return (

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 
-import { syncHttpSessionFromStorage } from '@features/auth/services/authService'
+import { persistAccessToken, syncHttpSessionFromStorage } from '@features/auth/services/authService'
 import { useAuthStore } from '@features/auth/store/authStore'
 import { waitForStoreHydration, useLocaleStore, useUiStore } from '@store'
 
@@ -16,7 +16,8 @@ export function StoreHydrationGate({ children }: StoreHydrationGateProps) {
 
   useEffect(() => {
     void waitForStoreHydration(PERSISTED_STORES).then(() => {
-      const { user } = useAuthStore.getState()
+      const { user, accessToken } = useAuthStore.getState()
+      persistAccessToken(accessToken)
       syncHttpSessionFromStorage(user?.tenantId)
       setHydrated(true)
     })
@@ -24,8 +25,8 @@ export function StoreHydrationGate({ children }: StoreHydrationGateProps) {
 
   if (!hydrated) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-neutral-900">
-        <div className="size-8 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="size-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
       </div>
     )
   }

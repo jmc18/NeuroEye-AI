@@ -10,10 +10,28 @@ export function useAuth() {
   const isAuthenticated = useAuthStore(authSelectors.isAuthenticated)
   const user = useAuthStore(authSelectors.user)
   const accessToken = useAuthStore(authSelectors.accessToken)
+  const impersonator = useAuthStore(authSelectors.impersonator)
   const login = useAuthStore((state) => state.login)
+  const register = useAuthStore((state) => state.register)
   const logout = useAuthStore((state) => state.logout)
+  const applySession = useAuthStore((state) => state.applySession)
+  const startImpersonation = useAuthStore((state) => state.startImpersonation)
+  const stopImpersonating = useAuthStore((state) => state.stopImpersonating)
+  const setUser = useAuthStore((state) => state.setUser)
 
-  return { isAuthenticated, user, accessToken, login, logout }
+  return {
+    isAuthenticated,
+    user,
+    accessToken,
+    impersonator,
+    login,
+    register,
+    logout,
+    applySession,
+    startImpersonation,
+    stopImpersonating,
+    setUser,
+  }
 }
 
 export function useLocale() {

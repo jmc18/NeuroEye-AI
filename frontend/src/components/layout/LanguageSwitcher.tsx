@@ -16,7 +16,7 @@ export function LanguageSwitcher({ className, variant = 'inline' }: LanguageSwit
     <div
       className={cn(
         variant === 'floating' &&
-          'fixed end-4 top-4 z-50 rounded-lg border border-gray-200 bg-white p-2 shadow-sm dark:border-neutral-700 dark:bg-neutral-800',
+          'fixed end-4 top-4 z-50 rounded-lg border border-outline-variant/40 bg-surface-container-lowest p-2 shadow-sm',
         className,
       )}
       role="group"
@@ -32,8 +32,8 @@ export function LanguageSwitcher({ className, variant = 'inline' }: LanguageSwit
             className={cn(
               'rounded-md px-2.5 py-1 text-xs font-medium uppercase transition-colors',
               locale === code
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-700',
+                ? 'bg-primary-container text-on-primary-container'
+                : 'text-on-surface-variant hover:bg-surface-container-high',
             )}
             aria-pressed={locale === code}
           >

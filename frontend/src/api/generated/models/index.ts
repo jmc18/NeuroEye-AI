@@ -24,3 +24,5 @@ export * from './loginRequest';
 export * from './loginResponse';
 export * from './validationError';
 export * from './validationErrorCtx';
+export * from './clinical';
+export * from './admin';

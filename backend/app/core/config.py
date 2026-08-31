@@ -36,6 +36,11 @@ class Settings(BaseSettings):
     seed_platform_last_name: str = ""
     seed_platform_second_last_name: str = ""
 
+    seed_clinician_email: str = "clinician@neuroeye.ai"
+    seed_clinician_password: str = "Clinician123!"
+    seed_clinician_first_name: str = "Aris"
+    seed_clinician_last_name: str = "Thorne"
+
     model_config = SettingsConfigDict(
         env_file=_BACKEND_DIR / ".env",
         extra="ignore",

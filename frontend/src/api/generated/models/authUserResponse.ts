@@ -24,4 +24,10 @@ export interface AuthUserResponse {
   role: string;
   tenant: string;
   tenant_id: string;
+  first_name?: string | null;
+  last_name?: string | null;
+  job_title?: string | null;
+  phone_number?: string | null;
+  impersonated?: boolean;
+  impersonator_id?: string | null;
 }

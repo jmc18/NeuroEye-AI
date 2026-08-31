@@ -1,3 +1,5 @@
 export { PageHeader } from './PageHeader'
 export { SidebarNav } from './SidebarNav'
 export { LanguageSwitcher } from './LanguageSwitcher'
+export { AppHeader } from './AppHeader'
+export { UserMenu } from './UserMenu'

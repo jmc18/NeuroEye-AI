@@ -22,15 +22,27 @@ OPENAPI_TAGS = [
     },
     {
         "name": "Auth",
-        "description": "Authentication and session management.",
+        "description": "Authentication, profile, and session management.",
     },
     {
-        "name": "Tenants",
-        "description": "Tenant (organization) management.",
+        "name": "Admin",
+        "description": "Platform super-admin tenants, accounts, and impersonation.",
     },
     {
-        "name": "Users",
-        "description": "User accounts and authentication.",
+        "name": "Patients",
+        "description": "Patient records for the authenticated tenant.",
+    },
+    {
+        "name": "Sessions",
+        "description": "Screening sessions, gaze metrics, and history.",
+    },
+    {
+        "name": "Dashboard",
+        "description": "Clinical overview KPIs.",
+    },
+    {
+        "name": "Reports",
+        "description": "Diagnostic reports generated from completed sessions.",
     },
     {
         "name": "Vision",

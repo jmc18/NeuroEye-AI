@@ -57,6 +57,32 @@ Current endpoints:
 
 - `health_check` — `GET /api/v1/health`
 - `login` — `POST /api/v1/auth/login`
+- `register` — `POST /api/v1/auth/register`
+- `get_me` — `GET /api/v1/auth/me`
+- `update_me` — `PATCH /api/v1/auth/me`
+- `change_my_email` — `PATCH /api/v1/auth/me/email`
+- `change_my_password` — `PATCH /api/v1/auth/me/password`
+- `logout` — `POST /api/v1/auth/logout`
+- `forgot_password` — `POST /api/v1/auth/forgot-password`
+- `reset_password` — `POST /api/v1/auth/reset-password`
+- `get_admin_tenants` / `create_admin_tenant` / `get_admin_tenant_by_id` / `update_admin_tenant`
+- `get_admin_tenant_users` / `create_admin_tenant_user`
+- `get_admin_users` / `update_admin_user`
+- `impersonate_admin_user` — `POST /api/v1/admin/users/{id}/impersonate`
+- `set_admin_user_password` / `send_admin_user_reset`
+- `get_patients` / `create_patient` / `get_patient_by_id` / `update_patient` / `delete_patient`
+- `get_dashboard_summary` — `GET /api/v1/dashboard/summary`
+- `get_test_presets` — `GET /api/v1/presets`
+- `get_sessions` / `create_session` / `get_session_by_id` / `get_session_report`
+- WebSocket `WS /api/v1/ws/eyetrack?token=<jwt>` — live gaze stream (not in OpenAPI)
+
+Protected REST routes require `Authorization: Bearer <jwt>`. Super-admin routes under `/api/v1/admin` require `role=super_admin` and reject impersonated sessions.
+
+Password recovery does not send email in this release. In `APP_ENV=development` the reset token is written to the API log (and returned on `send_admin_user_reset`). Impersonation issues a JWT whose `sub` is the target user and whose `impersonator_id` claim is the super admin. Stopping impersonation is a client-side restore of the original session.
+
+## Gaze WebSocket
+
+See [gaze.md](gaze.md) for the hybrid MediaPipe (browser) + gaze math (API) contract.
 
 ## OpenAPI follow-up
 

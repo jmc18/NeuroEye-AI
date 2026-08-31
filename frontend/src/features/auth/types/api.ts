@@ -19,5 +19,11 @@ export function mapAuthUserResponse(
     role: user.role,
     tenant: user.tenant,
     tenantId: user.tenant_id,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    jobTitle: user.job_title,
+    phoneNumber: user.phone_number,
+    impersonated: Boolean(user.impersonated),
+    impersonatorId: user.impersonator_id,
   }
 }

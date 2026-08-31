@@ -64,6 +64,11 @@ After login, the app navigates back to `returnUrl`. Auth state is stored in Zust
 | `/register` | Register | _auth |
 | `/recovery-password` | Recovery | _auth |
 | `/dashboard` | Dashboard | _app |
+| `/patients` | Patient list | _app |
+| `/patients/$patientId` | Patient file | _app |
+| `/sessions` | Session history | _app |
+| `/eyetracking/session` | AI screening canvas | ScreeningLayout |
+| `/reports/$sessionId` | Diagnostic report | _app |
 | `/profile` | Profile | _app |
 | `/settings` | Settings | _app |
 | `/privacy-policy` | Privacy | root |

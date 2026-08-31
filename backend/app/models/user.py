@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy import String
@@ -7,53 +9,62 @@ from sqlalchemy.orm import Mapped, relationship
 from sqlalchemy.orm import mapped_column
 
 from app.models.entity_base import EntityBase
-from app.models.tenant import Tenant
+
+if TYPE_CHECKING:
+    from app.models.screening_session import ScreeningSession
+    from app.models.tenant import Tenant
+    from app.models.user_profile import UserProfile
+    from app.models.user_role import UserRole
+
 
 class User(EntityBase):
     __tablename__ = "users"
 
     tenant_id: Mapped[str] = mapped_column(
-        String(255), 
-        ForeignKey("tenants.id"), 
-        nullable=False
+        String(255),
+        ForeignKey("tenants.id"),
+        nullable=False,
     )
-    
+
     email: Mapped[str] = mapped_column(
-        String(255), 
-        unique=True, 
-        nullable=False
+        String(255),
+        unique=True,
+        nullable=False,
     )
     hashed_password: Mapped[str] = mapped_column(
-        String(255), 
-        nullable=False
+        String(255),
+        nullable=False,
     )
 
     is_active: Mapped[bool] = mapped_column(
-        default=True
+        default=True,
     )
 
     deactivated_at: Mapped[DateTime] = mapped_column(
         DateTime(timezone=True),
         onupdate=func.now(),
-        nullable=True
+        nullable=True,
     )
-
-    ## Navigation properties
 
     tenant: Mapped["Tenant"] = relationship(
         back_populates="users",
-        lazy="raise"
+        lazy="raise",
     )
 
     profile: Mapped["UserProfile"] = relationship(
         back_populates="user",
         uselist=False,
         cascade="all, delete-orphan",
-        lazy="raise"
+        lazy="raise",
     )
 
     user_roles: Mapped[list["UserRole"]] = relationship(
         back_populates="user",
         cascade="all, delete-orphan",
-        lazy="raise"
+        lazy="raise",
+    )
+
+    clinician_sessions: Mapped[list["ScreeningSession"]] = relationship(
+        back_populates="clinician",
+        lazy="raise",
     )

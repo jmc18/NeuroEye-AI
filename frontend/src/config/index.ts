@@ -16,3 +16,10 @@
  * | `@/*`          | `src/` (fallback)|
  */
 export { ROUTES, type AppRoute } from './routes'
+
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+
+export const ENV = {
+  apiUrl: API_URL,
+  wsUrl: (import.meta.env.VITE_WS_URL as string | undefined) ?? API_URL.replace(/^http/, 'ws'),
+} as const

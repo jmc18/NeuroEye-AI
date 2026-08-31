@@ -49,6 +49,21 @@ export function HomePage() {
           path: ROUTES.app.settings,
           note: '_app/settings.tsx',
         },
+        {
+          label: t('home.routes.patients'),
+          path: ROUTES.app.patients,
+          note: '_app/patients.tsx',
+        },
+        {
+          label: t('home.routes.sessions'),
+          path: ROUTES.app.sessions,
+          note: '_app/sessions.tsx',
+        },
+        {
+          label: t('home.routes.screening'),
+          path: ROUTES.eyetracking.session,
+          note: '_app/eyetracking.session_.$patientId.tsx',
+        },
       ],
     },
   ]

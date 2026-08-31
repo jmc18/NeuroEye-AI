@@ -21,5 +21,12 @@ class UserRoleRepository:
         await self._session.flush()
         return entity
 
+    async def delete_for_user(self, user_id: str) -> None:
+        from sqlalchemy import delete
+
+        await self._session.execute(
+            delete(UserRole).where(UserRole.user_id == user_id)
+        )
+
     async def flush(self) -> None:
         await self._session.flush()

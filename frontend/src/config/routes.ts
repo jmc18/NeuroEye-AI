@@ -13,6 +13,14 @@ export const ROUTES = {
     dashboard: '/dashboard',
     profile: '/profile',
     settings: '/settings',
+    patients: '/patients',
+    patient: (id: string) => `/patients/${id}` as const,
+    sessions: '/sessions',
+  },
+  admin: {
+    tenants: '/admin/tenants',
+    tenant: (id: string) => `/admin/tenants/${id}` as const,
+    accounts: '/admin/accounts',
   },
   legal: {
     privacyPolicy: '/privacy-policy',
@@ -24,6 +32,7 @@ export const ROUTES = {
   },
   eyetracking: {
     session: '/eyetracking/session',
+    forPatient: (patientId: string) => `/eyetracking/session/${patientId}` as const,
   },
 } as const
 

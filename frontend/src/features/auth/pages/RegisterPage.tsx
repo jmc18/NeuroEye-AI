@@ -1,6 +1,9 @@
 import { getRouteApi, Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 
+import { FormField, PasswordInput, formControlClassName } from '@components/forms'
+import { Button } from '@components/ui'
+import { useRegisterForm } from '@features/auth/hooks/useRegisterForm'
 import { ROUTES } from '@config'
 
 const registerRoute = getRouteApi('/_auth/register')
@@ -8,59 +11,55 @@ const registerRoute = getRouteApi('/_auth/register')
 export function RegisterPage() {
   const { t } = useTranslation()
   const { returnUrl } = registerRoute.useSearch()
+  const { form, onSubmit, isSubmitting, failedMessage } = useRegisterForm(returnUrl)
+  const {
+    register,
+    formState: { errors },
+  } = form
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold text-gray-800 dark:text-white">
-          {t('auth.registerTitle')}
-        </h2>
+        <h2 className="text-headline-sm text-on-surface">{t('auth.registerTitle')}</h2>
+        {failedMessage ? <p className="mt-2 text-sm text-error">{failedMessage}</p> : null}
       </div>
 
-      <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-        <div>
-          <label className="mb-2 block text-sm font-medium text-gray-800 dark:text-white">
-            {t('auth.fullName')}
-          </label>
+      <form className="space-y-4" onSubmit={onSubmit} noValidate>
+        <FormField id="first_name" label={t('auth.firstName')} error={errors.first_name?.message}>
           <input
-            type="text"
-            className="block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+            id="first_name"
+            className={formControlClassName({ hasError: Boolean(errors.first_name) })}
+            {...register('first_name')}
           />
-        </div>
-        <div>
-          <label className="mb-2 block text-sm font-medium text-gray-800 dark:text-white">
-            {t('common.email')}
-          </label>
+        </FormField>
+        <FormField id="last_name" label={t('auth.lastName')} error={errors.last_name?.message}>
           <input
+            id="last_name"
+            className={formControlClassName({ hasError: Boolean(errors.last_name) })}
+            {...register('last_name')}
+          />
+        </FormField>
+        <FormField id="email" label={t('common.email')} error={errors.email?.message}>
+          <input
+            id="email"
             type="email"
-            className="block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+            autoComplete="email"
+            className={formControlClassName({ hasError: Boolean(errors.email) })}
             placeholder={t('auth.emailPlaceholder')}
+            {...register('email')}
           />
-        </div>
-        <div>
-          <label className="mb-2 block text-sm font-medium text-gray-800 dark:text-white">
-            {t('common.password')}
-          </label>
-          <input
-            type="password"
-            className="block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
-          />
-        </div>
-        <button
-          type="submit"
-          className="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-        >
-          {t('auth.register')}
-        </button>
+        </FormField>
+        <FormField id="password" label={t('common.password')} error={errors.password?.message}>
+          <PasswordInput id="password" autoComplete="new-password" hasError={Boolean(errors.password)} {...register('password')} />
+        </FormField>
+        <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+          {isSubmitting ? t('auth.registering') : t('auth.register')}
+        </Button>
       </form>
 
-      <p className="text-center text-sm text-gray-600 dark:text-neutral-400">
+      <p className="text-center text-sm text-on-surface-variant">
         {t('auth.hasAccount')}{' '}
-        <Link
-          to={ROUTES.auth.login}
-          search={{ returnUrl }}
-          className="font-medium text-blue-600 hover:underline"
-        >
+        <Link to={ROUTES.auth.login} search={{ returnUrl }} className="font-medium text-primary hover:underline">
           {t('auth.signIn')}
         </Link>
       </p>

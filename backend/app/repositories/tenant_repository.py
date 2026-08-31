@@ -16,3 +16,11 @@ class TenantRepository(BaseRepository[Tenant]):
                 Tenant.is_deleted.is_(False),
             )
         )
+
+    async def list_all(self) -> list[Tenant]:
+        result = await self._session.scalars(
+            select(Tenant)
+            .where(Tenant.is_deleted.is_(False))
+            .order_by(Tenant.name)
+        )
+        return list(result.all())

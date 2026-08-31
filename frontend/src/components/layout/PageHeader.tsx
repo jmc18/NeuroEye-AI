@@ -11,11 +11,16 @@ type PageHeaderProps = {
 
 export function PageHeader({ title, description, children, className }: PageHeaderProps) {
   return (
-    <div className={cn('mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between', className)}>
+    <div
+      className={cn(
+        'mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between',
+        className,
+      )}
+    >
       <div>
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">{title}</h1>
+        <h1 className="text-headline-md text-on-surface">{title}</h1>
         {description ? (
-          <p className="mt-1 text-sm text-gray-600 dark:text-neutral-400">{description}</p>
+          <p className="mt-1 text-sm text-on-surface-variant">{description}</p>
         ) : null}
       </div>
       {children}
